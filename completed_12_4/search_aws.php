@@ -16,6 +16,14 @@ $highResolution = false;
 
 $idHigh = "";
 
+$url = "";
+
+$location = "";
+
+$urlPresent = false;
+
+
+
 if(isset($_GET['search_query'])){
     $searchQuery = $_GET['search_query'];
 }
@@ -46,6 +54,15 @@ if(isset($_GET['highresolution'])){
 
 if(isset($_GET['idhigh'])){
     $idHigh = $_GET['idhigh'];
+}
+
+if(isset($_GET['urlSearch'])){
+    $url = $_GET['urlSearch'];
+    $urlPresent = true;
+}
+
+if(isset($_GET['location'])){
+    $location = true;
 }
 
 require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
@@ -140,7 +157,12 @@ function getHighResolutionImageUrlProfile($id){
     return null;
 }
 
-if($highResolution==true){
+if($urlPresent==true){
+    //echo $url;
+   $searchResult = file_get_contents($url);
+   echo $searchResult;
+}
+else if($highResolution==true){
     $searchResult = getHighResolutionImageUrlProfile($idHigh);
     echo $searchResult;
 }else if($details==true){
